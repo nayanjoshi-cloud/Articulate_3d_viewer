@@ -1,0 +1,20 @@
+{
+  "name": "playcanvas-3dgs-viewer",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "collision": "node tools/make-collision.js"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@playcanvas/supersplat-viewer": "^1.41.0",
+    "playcanvas": "^2.23.3"
+  },
+  "devDependencies": {
+    "@playcanvas/splat-transform": "^3.10.3",
+    "vite": "^8.3.5"
+  }
+}

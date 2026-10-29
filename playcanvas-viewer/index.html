@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Splat Viewer</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <aside id="panel">
+      <header>
+        <h1>Splat Viewer</h1>
+        <button type="button" id="hide-panel" class="icon" title="Hide panel" aria-label="Hide panel">«</button>
+      </header>
+
+      <label class="drop">
+        <input type="file" id="file" accept=".ply,.sog,.splat" hidden />
+        <strong>Open a splat file</strong>
+        <span>or drop it anywhere</span>
+        <small>.ply · .compressed.ply · .sog · .splat</small>
+      </label>
+
+      <form id="url-form">
+        <input type="url" id="url" placeholder="…or paste a URL" />
+        <button type="submit">Load</button>
+      </form>
+
+      <div id="status" hidden>
+        <div class="bar"><div id="bar-fill"></div></div>
+        <p id="status-text"></p>
+      </div>
+
+      <dl id="info" hidden>
+        <dt>File</dt><dd id="info-name"></dd>
+        <dt>Size</dt><dd id="info-size"></dd>
+      </dl>
+
+      <fieldset id="controls" disabled>
+        <label>
+          Camera mode
+          <select id="mode">
+            <option value="orbit">Orbit</option>
+            <option value="fly">Fly (WASD + drag)</option>
+            <option value="walk">Walk (needs collision)</option>
+          </select>
+        </label>
+        <div class="row">
+          <button type="button" id="frame">Frame scene</button>
+          <button type="button" id="reset">Reset view</button>
+        </div>
+        <button type="button" id="set-start">Set start view here</button>
+        <small id="start-pos" class="muted">Start: centre of the room (automatic)</small>
+      </fieldset>
+
+      <details id="collision" open>
+        <summary>Collision</summary>
+        <div class="section">
+          <fieldset id="generate" disabled>
+            <label>
+              Scene type
+              <select id="gen-mode">
+                <option value="room">Room / interior</option>
+                <option value="outdoor">Outdoor / open</option>
+              </select>
+            </label>
+            <label>
+              Detail
+              <select id="gen-voxel">
+                <option value="0.1">Coarse (10 cm, fast)</option>
+                <option value="0.05" selected>Normal (5 cm)</option>
+                <option value="0.025">Fine (2.5 cm, slow)</option>
+              </select>
+            </label>
+            <button type="button" id="gen-run">Generate collision mesh</button>
+            <small class="muted">Uses the camera position as a point inside the walkable space. Fly inside the room first.</small>
+          </fieldset>
+          <label class="file-button">
+            <input type="file" id="collision-file" accept=".glb" hidden />
+            Load collision mesh (.glb)
+          </label>
+          <small id="collision-name" class="muted">None</small>
+          <a id="collision-download" hidden>Download .collision.glb</a>
+          <label><input type="checkbox" id="show-collision" disabled /> Show collision</label>
+        </div>
+      </details>
+
+      <details id="look">
+        <summary>Settings</summary>
+        <div class="section">
+          <label class="file-button">
+            <input type="file" id="settings-file" accept=".json" hidden />
+            Load settings.json
+          </label>
+          <small id="settings-name" class="muted">Defaults</small>
+          <small class="muted">Background, tonemapping, colour grading, cameras and annotations, as exported by SuperSplat.</small>
+        </div>
+      </details>
+    </aside>
+
+    <main id="viewer"></main>
+    <button type="button" id="show-panel" class="icon" title="Show panel" aria-label="Show panel" hidden>☰</button>
+
+    <div id="drop-overlay" hidden>Drop to load</div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
